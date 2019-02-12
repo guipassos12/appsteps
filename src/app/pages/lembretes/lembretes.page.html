@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>lembretes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-card *ngFor="let item of lembretes; index as i">
+      <form [formGroup]="cardForm" (submit)="salvar(cardForm.value)">
+        <ion-row>
+          <ion-item>
+            <ion-label floating>Compromisso</ion-label>
+            <ion-input formControlName="compromisso" required class="input-card-header" value="{{item.compromisso}}"
+              [disabled]="lembrete.submitted"></ion-input>
+          </ion-item>
+        </ion-row>
+
+        <ion-row>
+          <ion-item>
+            <ion-label floating>Responsável</ion-label>
+            <ion-select formControlName="responsavel" required class="input-card-subtitle"
+              [disabled]="lembrete.submitted">
+              <ion-select-option value="G">Guilherme</ion-select-option>
+              <ion-select-option value="L">Laís</ion-select-option>
+              <ion-select-option value="T">Todos</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+
+        <ion-row>
+          <ion-item>
+            <ion-label floating>Data</ion-label>
+            <ion-datetime formControlName="data" required class="input-card-subtitle" displayFormat="DD/MM/YYYY"
+              cancelText="Cancelar" doneText="Selecionar" [disabled]="lembrete.submitted"></ion-datetime>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="cardfooter" [hidden]="lembrete.submitted">
+          <ion-col col-1>
+            <ion-button color="danger" shape="round" (click)="cancelar(i)">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col col-11>
+            <ion-button color="primary" shape="round" type="submit" [disabled]="!cardForm.valid">
+              <ion-icon name="save"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+
+    </ion-card>
+  </ion-list>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="itemAdicionado($event)">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -9,16 +9,15 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    loadChildren: './pages/home/home.module#HomePageModule'
   },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  }
+  { path: 'lembretes', loadChildren: './pages/lembretes/lembretes.module#LembretesPageModule' },
+  { path: 'contas', loadChildren: './pages/contas/contas.module#ContasPageModule' },
+  { path: 'compras', loadChildren: './pages/compras/compras.module#ComprasPageModule' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

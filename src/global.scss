@@ -9,3 +9,33 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+
+.alert-message {
+    overflow: hidden
+}
+
+ion-fab {
+    margin-right: 2%;
+}
+
+.disabled {
+  background-color: darkgray;
+}
+
+.input-card-header {
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.input-card-subtitle {
+    margin-left: 8px;
+}
+
+ion-card {
+    padding: 8px;
+}
+
+ion-list {
+    padding: 8px;
+}
