@@ -10,7 +10,7 @@
       <form [formGroup]="cardForm" (submit)="salvar(cardForm.value)">
         <ion-row>
           <ion-item>
-            <ion-label floating>Compromisso</ion-label>
+            <ion-label position="floating">Compromisso</ion-label>
             <ion-input formControlName="compromisso" required class="input-card-header" value="{{item.compromisso}}"
               [disabled]="lembrete.submitted"></ion-input>
           </ion-item>
@@ -18,7 +18,7 @@
 
         <ion-row>
           <ion-item>
-            <ion-label floating>Responsável</ion-label>
+            <ion-label position="floating">Responsável</ion-label>
             <ion-select formControlName="responsavel" required class="input-card-subtitle"
               [disabled]="lembrete.submitted">
               <ion-select-option value="G">Guilherme</ion-select-option>
@@ -30,7 +30,7 @@
 
         <ion-row>
           <ion-item>
-            <ion-label floating>Data</ion-label>
+            <ion-label position="floating">Data</ion-label>
             <ion-datetime formControlName="data" required class="input-card-subtitle" displayFormat="DD/MM/YYYY"
               cancelText="Cancelar" doneText="Selecionar" [disabled]="lembrete.submitted"></ion-datetime>
           </ion-item>
