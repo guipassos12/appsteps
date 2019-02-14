@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>lembretes</ion-title>
+    <ion-title>Lembretes</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,15 +14,15 @@
         <ion-row>
           <ion-item>
             <ion-label position="floating">Compromisso</ion-label>
-            <ion-input formControlName="compromisso" required class="input-card-header" value="{{item.compromisso}}"
+            <ion-input clearInput required formControlName="compromisso" class="input-card-header" value="{{item.compromisso}}"
               [disabled]="lembrete.submitted"></ion-input>
           </ion-item>
         </ion-row>
 
         <ion-row>
           <ion-item>
-            <ion-label position="floating">Responsável</ion-label>
-            <ion-select formControlName="responsavel" required class="input-card-subtitle"
+            <ion-label position="fixed">Responsável</ion-label>
+            <ion-select required cancelText="Cancelar" okText="Ok" formControlName="responsavel" class="input-card-subtitle"
               [disabled]="lembrete.submitted">
               <ion-select-option value="G">Guilherme</ion-select-option>
               <ion-select-option value="L">Laís</ion-select-option>
@@ -40,12 +40,12 @@
         </ion-row>
 
         <ion-row class="cardfooter" [hidden]="lembrete.submitted">
-          <ion-col col-1>
+          <ion-col size="2" sizeXs="4">
             <ion-button color="danger" shape="round" (click)="cancelar(i)">
               <ion-icon name="close"></ion-icon>
             </ion-button>
           </ion-col>
-          <ion-col col-11>
+          <ion-col size="10" sizeXs="8">
             <ion-button color="primary" shape="round" type="submit" [disabled]="!cardForm.valid">
               <ion-icon name="save"></ion-icon>
             </ion-button>
