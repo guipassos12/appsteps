@@ -14,9 +14,11 @@ export class LembretesPage implements OnInit {
   cardForm: FormGroup;
   lembretes: Array<Lembrete> = [];
   lembrete: Lembrete = new Lembrete(null, null, null, false, false);
+  customYearValues: Array<number> = [];
 
   constructor(public fb: FormBuilder, public lembreteService: LembretesService) {
     this.getAll();
+    this.anosDisponiveis();
   }
 
   ngOnInit() {
@@ -37,8 +39,20 @@ export class LembretesPage implements OnInit {
         }));
   }
 
+
+  anosDisponiveis() {
+    const ano = new Date().getFullYear();
+    for (let i = 0; i <= 2; i++) {
+      this.customYearValues.push(ano + i);
+    }
+  }
+
   itemAdicionado(event) {
     this.lembretes.push(this.lembrete);
+  }
+
+  itemFeito() {
+    console.log('deslizou');
   }
 
   salvar(form) {
