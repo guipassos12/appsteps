@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lembretes',
@@ -16,7 +17,7 @@ export class LembretesPage implements OnInit {
   lembrete: Lembrete = new Lembrete(null, null, null, false, false);
   customYearValues: Array<number> = [];
 
-  constructor(public fb: FormBuilder, public lembreteService: LembretesService) {
+  constructor(private fb: FormBuilder, private lembreteService: LembretesService, private toastCtrl: ToastController) {
     this.getAll();
     this.anosDisponiveis();
   }
@@ -55,10 +56,15 @@ export class LembretesPage implements OnInit {
     console.log('deslizou');
   }
 
-  salvar(form) {
+  async salvar(form) {
     const lemb = form;
     lemb.submitted = true;
-    console.log(lemb.compromisso + ' ' + lemb.responsavel + lemb.submitted);
+    const toast = await this.toastCtrl.create({
+      duration: 2000,
+      message: 'Compromisso para ' + lemb.responsavel + ' salvo com sucesso!'
+    });
+
+    toast.present();
   }
 
   cancelar(index) {
