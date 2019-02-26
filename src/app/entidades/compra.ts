@@ -1,6 +1,9 @@
 export class Compra {
-    constructor(
-        public tipo: string,
-        public titulo: string
-    ) { }
+
+    constructor(titulo) {
+        this.titulo = titulo;
+     }
+
+    public tipo: string;
+    public titulo: string;
 }

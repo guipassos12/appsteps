@@ -1,9 +1,9 @@
 export class Lembrete {
-    constructor(
-        public compromisso: string,
-        public responsavel: string,
-        public data: Date,
-        public submitted: boolean,
-        public feito: boolean
-    ) { }
+    constructor() { }
+
+    compromisso: string;
+    responsavel: string;
+    data: Date;
+    submitted: boolean;
+    feito: boolean;
 }

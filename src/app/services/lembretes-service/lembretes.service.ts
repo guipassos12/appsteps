@@ -26,10 +26,6 @@ export class LembretesService {
       );
   }
 
-  carregaTodosPromise() {
-    return this.http.get('').toPromise();
-  }
-
   salvarNovo() {
 
   }
