@@ -14,7 +14,6 @@ export class LembretesPage implements OnInit {
   itensForm: FormArray;
   cardForm: FormGroup;
   lembretes: Array<Lembrete> = [];
-  lembrete: Lembrete = new Lembrete();
   customYearValues: Array<number> = [];
 
   constructor(private fb: FormBuilder, private lembreteService: LembretesService, private toastCtrl: ToastController) {
@@ -48,16 +47,12 @@ export class LembretesPage implements OnInit {
     }
   }
 
-  async itemAdicionado(event) {
-    this.lembretes.push(this.lembrete);
+  async itemAdicionado() {
+    this.lembretes.push(new Lembrete());
   }
 
-  async itemFeito() {
-    console.log('deslizou');
-  }
-
-  async salvar(form) {
-    const lemb = form;
+  async salvar(index) {
+    const lemb = this.lembretes[index];
     lemb.submitted = true;
     const toast = await this.toastCtrl.create({
       duration: 2000,
