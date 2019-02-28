@@ -49,7 +49,7 @@
             </ion-button>
           </ion-col>
           <ion-col text-center>
-            <ion-button color="success" shape="round" type="submit" [hidden]="!item.submitted">
+            <ion-button color="success" shape="round" (click)="itemFeito(i)" type="submit" [hidden]="!item.submitted">
               <ion-icon name="checkmark"></ion-icon>
             </ion-button>
           </ion-col>

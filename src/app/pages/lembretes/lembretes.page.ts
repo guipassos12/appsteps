@@ -3,6 +3,7 @@ import { Lembrete } from '../../entidades/lembrete';
 import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
 import { ToastController } from '@ionic/angular';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Component({
   selector: 'app-lembretes',
@@ -16,7 +17,8 @@ export class LembretesPage implements OnInit {
   lembretes: Array<Lembrete> = [];
   customYearValues: Array<number> = [];
 
-  constructor(private fb: FormBuilder, private lembreteService: LembretesService, private toastCtrl: ToastController) {
+  constructor(private fb: FormBuilder, private lembServ: LembretesService,
+    private toastCtrl: ToastController, private localNotif: LocalNotifications) {
     this.getAll();
     this.anosDisponiveis();
   }
@@ -32,7 +34,7 @@ export class LembretesPage implements OnInit {
   }
 
   getAll() {
-    this.lembreteService.carregaTodos()
+    this.lembServ.carregaTodos()
       .subscribe(
         (data => {
           this.lembretes = data;
@@ -53,6 +55,7 @@ export class LembretesPage implements OnInit {
 
   async salvar(index) {
     const lemb = this.lembretes[index];
+    console.log(lemb.compromisso + ' ' + lemb.responsavel + ' ' + lemb.data);
     lemb.submitted = true;
     const toast = await this.toastCtrl.create({
       duration: 2000,
@@ -64,6 +67,32 @@ export class LembretesPage implements OnInit {
 
   async cancelar(index) {
     this.lembretes.splice(index, 1);
+  }
+
+  async itemFeito(index) {
+    this.lembretes.splice(index, 1);
+    const toast = await this.toastCtrl.create({
+      duration: 2000,
+      message: 'Que responsável! Fazendo todas as suas obrigações :) '
+    });
+
+    this.localNotif.schedule({
+      id: 1,
+      title: 'Local ILocalNotification Example',
+      text: 'Multi ILocalNotification 2',
+      led: 'red', // ANDROID
+      icon: '../assets/icon/favicon.png'
+    });
+
+    // Schedule delayed notification
+    /*this.localNotif.schedule({
+      text: 'Delayed ILocalNotification',
+      trigger: { at: new Date(new Date().getTime() + 3600) },
+      led: 'FF0000',
+      sound: null
+    });*/
+
+    toast.present();
   }
 
 }
