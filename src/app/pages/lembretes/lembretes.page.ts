@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
 import { ToastController } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-lembretes',
@@ -18,7 +19,7 @@ export class LembretesPage implements OnInit {
   customYearValues: Array<number> = [];
 
   constructor(private fb: FormBuilder, private lembServ: LembretesService,
-    private toastCtrl: ToastController, private localNotif: LocalNotifications) {
+    private toastCtrl: ToastController, private localNotif: LocalNotifications, private backgroundMode: BackgroundMode) {
     this.getAll();
     this.anosDisponiveis();
   }
@@ -49,13 +50,15 @@ export class LembretesPage implements OnInit {
     }
   }
 
+
   async itemAdicionado() {
     this.lembretes.push(new Lembrete());
   }
 
+
   async salvar(index) {
     const lemb = this.lembretes[index];
-    console.log(lemb.compromisso + ' ' + lemb.responsavel + ' ' + lemb.data);
+
     lemb.submitted = true;
     const toast = await this.toastCtrl.create({
       duration: 2000,
@@ -65,32 +68,30 @@ export class LembretesPage implements OnInit {
     toast.present();
   }
 
+
   async cancelar(index) {
     this.lembretes.splice(index, 1);
   }
 
+
   async itemFeito(index) {
+    const lemb = this.lembretes[index];
+
+    this.backgroundMode.enable();
+    this.localNotif.schedule({
+      title: 'Compromisso a ser feito',
+      text: lemb.compromisso,
+      foreground: true,
+      vibrate: true,
+      trigger: { at: lemb.data },
+      led: 'FF0000'
+    });
+
     this.lembretes.splice(index, 1);
     const toast = await this.toastCtrl.create({
       duration: 2000,
       message: 'Que responsável! Fazendo todas as suas obrigações :) '
     });
-
-    this.localNotif.schedule({
-      id: 1,
-      title: 'Local ILocalNotification Example',
-      text: 'Multi ILocalNotification 2',
-      led: 'red', // ANDROID
-      icon: '../assets/icon/favicon.png'
-    });
-
-    // Schedule delayed notification
-    /*this.localNotif.schedule({
-      text: 'Delayed ILocalNotification',
-      trigger: { at: new Date(new Date().getTime() + 3600) },
-      led: 'FF0000',
-      sound: null
-    });*/
 
     toast.present();
   }
