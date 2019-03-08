@@ -14,15 +14,15 @@ const routes: Routes = [
         children: [
             {
                 path: 'faturas',
-                loadChildren: './pages/contas/faturas/faturas.module#FaturasPageModule'
+                loadChildren: './faturas/faturas.module#FaturasPageModule'
             },
             {
                 path: 'luz',
-                loadChildren: './pages/contas/luz/luz.module#LuzPageModule'
+                loadChildren: './luz/luz.module#LuzPageModule'
             },
             {
                 path: 'nights',
-                loadChildren: './pages/contas/nights/nights.module#NightsPageModule'
+                loadChildren: './nights/nights.module#NightsPageModule'
             }
         ]
     }

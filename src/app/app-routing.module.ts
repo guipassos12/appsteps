@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   { path: 'lembretes', loadChildren: './pages/lembretes/lembretes.module#LembretesPageModule' },
   { path: 'contas', loadChildren: './pages/contas/contas.module#ContasPageModule' },
-  { path: 'compras', loadChildren: './pages/compras/compras.module#ComprasPageModule' }
+  { path: 'mercado', loadChildren: './pages/mercado/mercado.module#MercadoPageModule' }
 ];
 
 @NgModule({

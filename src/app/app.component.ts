@@ -16,8 +16,8 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'Compras',
-      url: '/compras',
+      title: 'Mercado',
+      url: '/mercado',
       icon: 'cart'
     },
     {

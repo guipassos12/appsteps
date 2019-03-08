@@ -36,10 +36,9 @@ export class LembretesPage implements OnInit {
 
   getAll() {
     this.lembServ.carregaTodos()
-      .subscribe(
-        (data => {
-          this.lembretes = data;
-        }));
+      .subscribe(data => {
+        this.lembretes = data;
+      });
   }
 
 

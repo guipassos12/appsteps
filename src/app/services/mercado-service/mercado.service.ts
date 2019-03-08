@@ -6,25 +6,22 @@ import { map, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class LembretesService {
+export class MercadoService {
   data: any;
   constructor(public http: HttpClient) { }
 
   carregaTodos(): Observable<any> {
-    if (this.data) {
-      return this.data;
-    }
-
-    return this.http.get('')
-      .pipe(
-        map((data: any[]) => {
-          this.data = data;
-          return true;
-        }), catchError(error => {
-          return throwError('Deu ruim nos lembretes: ' + error);
-        })
-      );
+    return this.http.get('').pipe(
+      map((data) => {
+        this.data = data;
+        return true;
+      }),
+      catchError(erro => {
+        return throwError('Deu ruim nas compras: ' + erro);
+      })
+    );
   }
+
 
   salvar(): Observable<any> {
     return this.http.post('', null).pipe();
