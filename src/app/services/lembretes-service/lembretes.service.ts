@@ -26,8 +26,8 @@ export class LembretesService {
       );
   }
 
-  salvar(): Observable<any> {
-    return this.http.post('', null).pipe();
+  salvar(lembrete): Observable<any> {
+    return this.http.post('', lembrete).pipe();
   }
 
 

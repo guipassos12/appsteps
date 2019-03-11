@@ -4,6 +4,6 @@ export class Compra {
         this.titulo = titulo;
      }
 
-    public tipo: string;
+    public tipo: number;
     public titulo: string;
 }

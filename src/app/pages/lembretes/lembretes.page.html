@@ -11,23 +11,23 @@
   <ion-list>
 
     <ion-card *ngFor="let item of lembretes; index as i">
-      <form [formGroup]="cardForm" (submit)="salvar(i)">
+      <form [formGroup]="cardForm" novalidate (submit)="salvar(i)">
 
         <ion-item>
           <ion-label position="floating">Compromisso</ion-label>
           <ion-input clearInput required formControlName="compromisso" class="input-card-header"
             value="{{item.compromisso}}" [disabled]="item.submitted"></ion-input>
         </ion-item>
+        <div class="validation-fail" *ngIf="(compromisso.dirty || compromisso.touched) && compromisso.invalid">Compromisso necessário. </div>
 
         <ion-item>
           <ion-label position="floating">Responsável</ion-label>
           <ion-select required cancelText="Cancelar" okText="Ok" formControlName="responsavel"
             class="input-card-subtitle" value="{{item.responsavel}}" [disabled]="item.submitted">
-            <ion-select-option value="Guilherme">Guilherme</ion-select-option>
-            <ion-select-option value="Laís">Laís</ion-select-option>
-            <ion-select-option value="Todos">Todos</ion-select-option>
+            <ion-select-option *ngFor="let op of selectOptions" value="{{op.id}}">{{op.text}}</ion-select-option>
           </ion-select>
         </ion-item>
+        <div class="validation-fail" *ngIf="(responsavel.dirty || responsavel.touched) && responsavel.invalid">Responsável necessário. </div>
 
         <ion-item>
           <ion-label position="floating">Data</ion-label>
@@ -35,6 +35,7 @@
             picker-format="DD MMM YYYY" cancelText="Cancelar" doneText="Selecionar" value="{{item.responsavel}}"
             [disabled]="item.submitted" [yearValues]="customYearValues"></ion-datetime>
         </ion-item>
+        <div class="validation-fail" *ngIf="(data.dirty || data.touched) && data.invalid">Selecione uma data.</div>
 
 
         <ion-row class="cardfooter">
@@ -44,7 +45,8 @@
             </ion-button>
           </ion-col>
           <ion-col size="2" sizeXs="3" text-right>
-            <ion-button color="primary" shape="round" type="submit" [hidden]="item.submitted" [disabled]="!cardForm.valid">
+            <ion-button color="primary" shape="round" type="submit" [hidden]="item.submitted"
+              [disabled]="!cardForm.valid">
               <ion-icon name="save"></ion-icon>
             </ion-button>
           </ion-col>
@@ -54,6 +56,8 @@
             </ion-button>
           </ion-col>
         </ion-row>
+
+        <p>Form: {{cardForm.value | json }}</p>
       </form>
     </ion-card>
   </ion-list>
