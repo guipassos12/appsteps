@@ -1,7 +1,9 @@
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class LembretesService {
       return this.data;
     }
 
-    return this.http.get('')
+    return this.http.get(environment.urlback + '/lembretes')
       .pipe(
         map((data: any[]) => {
           this.data = data;
@@ -27,7 +29,7 @@ export class LembretesService {
   }
 
   salvar(lembrete): Observable<any> {
-    return this.http.post('', lembrete).pipe();
+    return this.http.post(environment.urlback + '/lembretes/add', lembrete).pipe();
   }
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class MercadoService {
   constructor(public http: HttpClient) { }
 
   carregaTodos(): Observable<any> {
-    return this.http.get('').pipe(
+    return this.http.get(environment.urlback + '/compras').pipe(
       map((data) => {
         this.data = data;
         return true;
@@ -24,7 +25,7 @@ export class MercadoService {
 
 
   salvar(): Observable<any> {
-    return this.http.post('', null).pipe();
+    return this.http.post(environment.urlback + '/compras/add', null).pipe();
   }
 
 

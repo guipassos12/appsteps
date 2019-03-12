@@ -22,6 +22,7 @@ export class MercadoPage implements OnInit {
     this.mercadoSrv.carregaTodos()
       .subscribe(data => {
         this.compras = data;
+        console.log(this.compras);
       });
   }
 
