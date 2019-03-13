@@ -15,7 +15,7 @@ export class MercadoService {
     return this.http.get(environment.urlback + '/compras').pipe(
       map((data) => {
         this.data = data;
-        return true;
+        return this.data;
       }),
       catchError(erro => {
         return throwError('Deu ruim nas compras: ' + erro);
@@ -24,8 +24,8 @@ export class MercadoService {
   }
 
 
-  salvar(): Observable<any> {
-    return this.http.post(environment.urlback + '/compras/add', null).pipe();
+  salvar(compra): Observable<any> {
+    return this.http.post(environment.urlback + '/compras/add', compra).pipe();
   }
 
 
