@@ -21,7 +21,7 @@ export class LembretesService {
       .pipe(
         map((data: any[]) => {
           this.data = data;
-          return true;
+          return this.data;
         }), catchError(error => {
           return throwError('Deu ruim nos lembretes: ' + error);
         })

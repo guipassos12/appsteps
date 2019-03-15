@@ -27,20 +27,6 @@ export class MercadoPage implements OnInit {
   }
 
 
-  comprado(slidingItem: IonItemSliding, index: number) {
-    // é para tirar daqui
-    slidingItem.close();
-    this.compras.splice(index, 1);
-
-    this.mercadoSrv.finalizar().subscribe(response => {
-      if (response) {
-        slidingItem.close();
-        this.compras.splice(index, 1);
-      }
-    });
-  }
-
-
   async adicionarItem() {
     const alert = await this.alertCtrl.create({
       subHeader: 'Adicione a lista de compras',
@@ -58,7 +44,9 @@ export class MercadoPage implements OnInit {
           text: 'OK',
           handler: (data) => {
             const compra = new Compra(data.titulo);
-            this.compras.push(compra);
+            this.mercadoSrv.salvar(compra).subscribe(() => {
+              this.compras.push(compra);
+            });
           }
         }
       ]
@@ -67,6 +55,17 @@ export class MercadoPage implements OnInit {
     await alert.present().then(() => {
       const focused: any = document.querySelector('ion-alert input');
       focused.focus();
+    });
+  }
+
+
+  comprado(slidingItem: IonItemSliding, index: number) {
+    const compra: Compra = this.compras[index];
+    this.mercadoSrv.finalizar(compra._id).subscribe(response => {
+      if (response) {
+        slidingItem.close();
+        this.compras.splice(index, 1);
+      }
     });
   }
 

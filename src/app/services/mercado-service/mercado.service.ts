@@ -8,14 +8,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class MercadoService {
-  data: any;
+
   constructor(public http: HttpClient) { }
 
   carregaTodos(): Observable<any> {
     return this.http.get(environment.urlback + '/compras').pipe(
       map((data) => {
-        this.data = data;
-        return true;
+        return data;
       }),
       catchError(erro => {
         return throwError('Deu ruim nas compras: ' + erro);
@@ -24,12 +23,12 @@ export class MercadoService {
   }
 
 
-  salvar(): Observable<any> {
-    return this.http.post(environment.urlback + '/compras/add', null).pipe();
+  salvar(compra): Observable<any> {
+    return this.http.post(environment.urlback + '/compras/add', compra).pipe();
   }
 
 
-  finalizar(): Observable<any> {
-    return this.http.delete('').pipe();
+  finalizar(id): Observable<any> {
+    return this.http.delete(environment.urlback + '/compras/del/' + id).pipe();
   }
 }
