@@ -4,6 +4,6 @@ export class Compra {
         this.titulo = titulo;
      }
 
-    public tipo: number;
+    public _id: number;
     public titulo: string;
 }

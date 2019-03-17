@@ -22,24 +22,8 @@ export class MercadoPage implements OnInit {
     this.mercadoSrv.carregaTodos()
       .subscribe(data => {
         this.compras = data;
-        console.log(this.compras);
       });
   }
-
-
-  comprado(slidingItem: IonItemSliding, index: number) {
-    // é para tirar daqui
-    slidingItem.close();
-    this.compras.splice(index, 1);
-
-    this.mercadoSrv.finalizar().subscribe(response => {
-      if (response) {
-        slidingItem.close();
-        this.compras.splice(index, 1);
-      }
-    });
-  }
-
 
   async adicionarItem() {
     const alert = await this.alertCtrl.create({
@@ -69,6 +53,14 @@ export class MercadoPage implements OnInit {
     await alert.present().then(() => {
       const focused: any = document.querySelector('ion-alert input');
       focused.focus();
+    });
+  }
+
+  comprado(slidingItem: IonItemSliding, index: number) {
+
+    this.mercadoSrv.finalizar(this.compras[index]).subscribe(() => {
+      slidingItem.close();
+      this.compras.splice(index, 1);
     });
   }
 
