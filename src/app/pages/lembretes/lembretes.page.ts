@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lembretes',
@@ -23,7 +24,7 @@ export class LembretesPage implements OnInit {
     { id: 'T', text: 'Todos' }
   ];
 
-  constructor(private fb: FormBuilder, private lembServ: LembretesService,
+  constructor(private fb: FormBuilder, private lembServ: LembretesService, private loadCtrl: LoadingController,
     private toastCtrl: ToastController, private localNotif: LocalNotifications, private backgroundMode: BackgroundMode) {
     this.getAll();
     this.anosDisponiveis();
@@ -39,9 +40,17 @@ export class LembretesPage implements OnInit {
     this.itensForm = this.fb.array([]);
   }
 
-  getAll() {
-    this.lembServ.carregaTodos()
+
+  async getAll() {
+    const load = await this.loadCtrl.create({
+      message: 'Carregando dados...',
+      spinner: 'bubbles'
+    });
+
+    await load.present();
+    await this.lembServ.carregaTodos()
       .subscribe(data => {
+        load.dismiss();
         this.lembretes = data;
       });
   }
@@ -73,7 +82,6 @@ export class LembretesPage implements OnInit {
         trigger: { at: lemb.data },
         led: 'FF0000'
       });
-
 
       lemb.submitted = true;
       const toast = await this.toastCtrl.create({

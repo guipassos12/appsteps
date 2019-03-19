@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Compra } from 'src/app/entidades/compra';
-import { IonItemSliding, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { MercadoService } from './../../services/mercado-service/mercado.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mercado',
@@ -12,18 +13,28 @@ export class MercadoPage implements OnInit {
 
   compras: Array<Compra> = [];
 
-  constructor(public alertCtrl: AlertController, public mercadoSrv: MercadoService) { }
+  constructor(public alertCtrl: AlertController, public loadCtrl: LoadingController, public mercadoSrv: MercadoService) { }
 
   ngOnInit() {
-    this.getAll();
+    this.getCompras();
   }
 
-  getAll() {
-    this.mercadoSrv.carregaTodos()
-      .subscribe(data => {
-        this.compras = data;
+  async getCompras() {
+    const load = await this.loadCtrl.create({
+      message: 'Carregando dados...',
+      spinner: 'bubbles'
+    });
+    await load.present();
+    await this.mercadoSrv.carregaTodos()
+      .subscribe(res => {
+        this.compras = res;
+        load.dismiss();
+      }, err => {
+        console.log(err);
+        load.dismiss();
       });
   }
+
 
   async adicionarItem() {
     const alert = await this.alertCtrl.create({
@@ -56,10 +67,9 @@ export class MercadoPage implements OnInit {
     });
   }
 
-  async comprado(slidingItem: IonItemSliding, index: number) {
-
-    this.mercadoSrv.finalizar(this.compras[index]).subscribe(() => {
-      slidingItem.close();
+  async comprado(index: number) {
+    const compra = this.compras[index];
+    await this.mercadoSrv.finalizar(compra._id).subscribe(() => {
       this.compras.splice(index, 1);
     });
   }
