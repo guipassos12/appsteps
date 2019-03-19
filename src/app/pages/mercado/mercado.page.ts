@@ -56,10 +56,9 @@ export class MercadoPage implements OnInit {
     });
   }
 
-  comprado(slidingItem: IonItemSliding, index: number) {
+  comprado(index: number) {
 
     this.mercadoSrv.finalizar(this.compras[index]).subscribe(() => {
-      slidingItem.close();
       this.compras.splice(index, 1);
     });
   }
