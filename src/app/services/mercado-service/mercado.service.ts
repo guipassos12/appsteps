@@ -24,11 +24,11 @@ export class MercadoService {
 
 
   salvar(compra): Observable<any> {
-    return this.http.post(environment.urlback + '/compras/add', compra).pipe();
+    return this.http.post(environment.urlback + '/compras/add', compra);
   }
 
 
-  finalizar(id): Observable<any> {
-    return this.http.delete(environment.urlback + '/compras/del/' + id).pipe();
+  finalizar(compra): Observable<any> {
+    return this.http.delete(environment.urlback + '/compras/del/' + compra._id);
   }
 }
