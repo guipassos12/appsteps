@@ -52,8 +52,10 @@ export class MercadoPage implements OnInit {
           text: 'OK',
           handler: (data) => {
             const compra = new Compra(data.titulo);
-            this.mercadoSrv.salvar(compra).subscribe(() => {
-              this.compras.push(compra);
+            console.log('entrou');
+            this.mercadoSrv.salvar(compra).subscribe(res => {
+              console.log('entrou ssubs ' + res);
+              this.compras.push(res);
             });
           }
         }
