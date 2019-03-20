@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Compra } from 'src/app/entidades/compra';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, IonItemSliding } from '@ionic/angular';
 import { MercadoService } from './../../services/mercado-service/mercado.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mercado',
@@ -67,11 +66,12 @@ export class MercadoPage implements OnInit {
     });
   }
 
-  async comprado(index: number) {
+  async comprado(slidingItem: IonItemSliding, index: number) {
     const compra = this.compras[index];
-    await this.mercadoSrv.finalizar(compra._id).subscribe(() => {
-      this.compras.splice(index, 1);
+    await this.mercadoSrv.finalizar(compra._id).subscribe(res => {
+      this.compras = res;
     });
+    slidingItem.close();
   }
 
 }

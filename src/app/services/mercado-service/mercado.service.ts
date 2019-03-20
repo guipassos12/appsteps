@@ -23,6 +23,9 @@ export class MercadoService {
 
   salvar(compra): Observable<any> {
     return this.http.post(environment.urlback + '/compras/add', compra).pipe(
+      map(data => {
+        return data;
+      }),
       catchError(this.handleError)
     );
   }
@@ -30,6 +33,9 @@ export class MercadoService {
 
   finalizar(id): Observable<any> {
     return this.http.delete(environment.urlback + '/compras/del/' + id).pipe(
+      map(data => {
+        return data;
+      }),
       catchError(this.handleError)
     );
   }
