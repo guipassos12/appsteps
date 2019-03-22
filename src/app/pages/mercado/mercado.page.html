@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngFor="let c of compras; index as i">
-    <ion-item-sliding #slidingItem>
+  <ion-list >
+    <ion-item-sliding #slidingItem *ngFor="let c of compras; index as i">
       <ion-item>
         <ion-label>{{c.titulo}}</ion-label>
       </ion-item>

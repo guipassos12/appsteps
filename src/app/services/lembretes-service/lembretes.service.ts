@@ -2,7 +2,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,13 +12,9 @@ export class LembretesService {
   constructor(public http: HttpClient) { }
 
   carregaTodos(): Observable<any> {
-    return this.http.get(environment.urlback + '/lembretes')
-      .pipe(
-        map(data => {
-          return data;
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.get(environment.urlback + '/lembretes').pipe(
+      catchError(this.handleError)
+    );
   }
 
   salvar(lembrete): Observable<any> {
@@ -44,6 +40,6 @@ export class LembretesService {
       console.error('Backend returned code ${error.status}, ' + 'body was: ${error.error}');
     }
     // return an observable with a user-facing error message
-    return throwError('Algo errado aconteceu, tente novamente mais tarde.');
+    return throwError('Algo de errado aconteceu, tente novamente mais tarde.');
   }
 }

@@ -1,3 +1,4 @@
+import { LembretesModalPage } from './../../modals/lembretes-modal/lembretes-modal.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LembretesPage]
+  declarations: [LembretesPage],
+  entryComponents: [LembretesModalPage]
 })
 export class LembretesPageModule { }

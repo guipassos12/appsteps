@@ -1,11 +1,11 @@
+import { LembretesModalPage } from './../../modals/lembretes-modal/lembretes-modal.page';
 import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
-import { ToastController, LoadingController } from '@ionic/angular';
+import { ToastController, LoadingController, ModalController } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lembretes',
@@ -24,7 +24,8 @@ export class LembretesPage implements OnInit {
     { id: 'T', text: 'Todos' }
   ];
 
-  constructor(private fb: FormBuilder, private lembServ: LembretesService, private loadCtrl: LoadingController,
+  constructor(private fb: FormBuilder, private lembServ: LembretesService,
+    private loadCtrl: LoadingController, private modalCtrl: ModalController,
     private toastCtrl: ToastController, private localNotif: LocalNotifications, private backgroundMode: BackgroundMode) {
     this.getAll();
     this.anosDisponiveis();
@@ -64,8 +65,16 @@ export class LembretesPage implements OnInit {
   }
 
 
-  async itemAdicionado() {
-    this.lembretes.push(new Lembrete());
+  async adicionar() {
+    const modal = await this.modalCtrl.create({
+      component: LembretesModalPage
+    });
+
+    await modal.present();
+
+    modal.dismiss({
+
+    });
   }
 
 
@@ -94,7 +103,7 @@ export class LembretesPage implements OnInit {
   }
 
 
-  async cancelar(index) {
+  cancelar(index) {
     this.lembretes.splice(index, 1);
   }
 

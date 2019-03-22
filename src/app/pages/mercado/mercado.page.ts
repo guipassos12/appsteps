@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Compra } from 'src/app/entidades/compra';
-import { LoadingController, AlertController, IonItemSliding } from '@ionic/angular';
+import { LoadingController, AlertController, IonItemSliding, ToastController } from '@ionic/angular';
 import { MercadoService } from './../../services/mercado-service/mercado.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class MercadoPage implements OnInit {
 
   compras: Array<Compra> = [];
 
-  constructor(public alertCtrl: AlertController, public loadCtrl: LoadingController, public mercadoSrv: MercadoService) { }
+  constructor(public alertCtrl: AlertController, public toastCtrl: ToastController, public zone: NgZone,
+    public loadCtrl: LoadingController, public mercadoSrv: MercadoService) { }
 
   ngOnInit() {
     this.getCompras();
@@ -52,11 +53,19 @@ export class MercadoPage implements OnInit {
           text: 'OK',
           handler: (data) => {
             const compra = new Compra(data.titulo);
-            console.log('entrou');
-            this.mercadoSrv.salvar(compra).subscribe(res => {
-              console.log('entrou ssubs ' + res);
-              this.compras.push(res);
-            });
+            this.mercadoSrv.salvar(compra).subscribe(
+              res => {
+                this.zone.run( () => {
+                  this.compras.push(res);
+                });
+              },
+              async err => {
+                const toast = await this.toastCtrl.create({
+                  duration: 2000,
+                  message: err
+                });
+                toast.present();
+              });
           }
         }
       ]
@@ -68,11 +77,22 @@ export class MercadoPage implements OnInit {
     });
   }
 
-  async comprado(slidingItem: IonItemSliding, index: number) {
+
+  comprado(slidingItem: IonItemSliding, index: number) {
     const compra = this.compras[index];
-    await this.mercadoSrv.finalizar(compra._id).subscribe(res => {
-      this.compras = res;
-    });
+    this.mercadoSrv.finalizar(compra._id).subscribe(
+      res => {
+        this.compras.splice(index, 1);
+      },
+      async err => {
+        const toast = await this.toastCtrl.create({
+          duration: 2000,
+          message: err
+        });
+
+        toast.present();
+      }
+    );
     slidingItem.close();
   }
 

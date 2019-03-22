@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,9 +13,6 @@ export class MercadoService {
 
   carregaTodos(): Observable<any> {
     return this.http.get(environment.urlback + '/compras').pipe(
-      map((data) => {
-        return data;
-      }),
       catchError(this.handleError)
     );
   }
@@ -23,9 +20,6 @@ export class MercadoService {
 
   salvar(compra): Observable<any> {
     return this.http.post(environment.urlback + '/compras/add', compra).pipe(
-      map(data => {
-        return data;
-      }),
       catchError(this.handleError)
     );
   }
@@ -33,9 +27,6 @@ export class MercadoService {
 
   finalizar(id): Observable<any> {
     return this.http.delete(environment.urlback + '/compras/del/' + id).pipe(
-      map(data => {
-        return data;
-      }),
       catchError(this.handleError)
     );
   }
@@ -50,6 +41,6 @@ export class MercadoService {
       console.error('Backend returned code ${error.status}, ' + 'body was: ${error.error}');
     }
     // return an observable with a user-facing error message
-    return throwError('Algo errado aconteceu, tente novamente mais tarde.');
+    return throwError('Algo de errado aconteceu, tente novamente mais tarde.');
   }
 }
