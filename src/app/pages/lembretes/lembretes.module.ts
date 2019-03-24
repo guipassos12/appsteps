@@ -23,7 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LembretesPage],
+  declarations: [LembretesPage, LembretesModalPage],
   entryComponents: [LembretesModalPage]
 })
 export class LembretesPageModule { }

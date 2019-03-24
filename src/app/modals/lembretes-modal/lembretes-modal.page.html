@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Editar Lembrete</ion-title>
+    <ion-icon slot="end" color="black" name="close" size="large" (click)="cancelar()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
- 
+  <form [formGroup]="cardForm" novalidate (submit)="salvar()">
+
+    <ion-item>
+      <ion-label position="floating">Compromisso</ion-label>
+      <ion-input clearInput required formControlName="compromisso" class="input-card-header"></ion-input>
+    </ion-item>
+    <div class="validation-fail" *ngIf="(compromisso.dirty || compromisso.touched) && compromisso.invalid">Compromisso
+      necessário. </div>
+
+    <ion-item>
+      <ion-label position="floating">Responsável</ion-label>
+      <ion-select required cancelText="Cancelar" okText="Ok" formControlName="responsavel" class="input-card-subtitle">
+        <ion-select-option *ngFor="let op of selectOptions" value="{{op.id}}">{{op.text}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="validation-fail" *ngIf="(responsavel.dirty || responsavel.touched) && responsavel.invalid">
+      Responsável necessário.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Data</ion-label>
+      <ion-datetime formControlName="data" required class="input-card-subtitle" display-format="DD/MM/YYYY"
+        picker-format="DD MMM YYYY" cancelText="Cancelar" doneText="Selecionar" [yearValues]="customYearValues">
+      </ion-datetime>
+    </ion-item>
+    <div class="validation-fail" *ngIf="(data.dirty || data.touched) && data.invalid">Selecione uma data.</div>
+
+    <ion-button color="primary" shape="round" type="submit" [disabled]="!cardForm.valid">
+      <ion-icon name="save"></ion-icon>
+    </ion-button>
+  </form>
 </ion-content>

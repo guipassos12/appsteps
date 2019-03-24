@@ -9,59 +9,23 @@
 
 <ion-content padding>
   <ion-list>
-
     <ion-card *ngFor="let item of lembretes; index as i">
-      <form [formGroup]="cardForm" novalidate (submit)="salvar(i)">
+      <ion-item>
+        <ion-label position="stacked">Compromisso</ion-label>
+        <ion-input [disabled]="true">{{ item.compromisso }}</ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Compromisso</ion-label>
-          <ion-input clearInput required formControlName="compromisso" class="input-card-header"
-            value="{{item.compromisso}}" [disabled]="item.submitted"></ion-input>
-        </ion-item>
-        <div class="validation-fail" *ngIf="(compromisso.dirty || compromisso.touched) && compromisso.invalid">Compromisso necessário. </div>
+      <ion-item>
+        <ion-label position="stacked">Responsável</ion-label>
+        <ion-input [disabled]="true">{{ item.responsavel }}</ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Responsável</ion-label>
-          <ion-select required cancelText="Cancelar" okText="Ok" formControlName="responsavel"
-            class="input-card-subtitle" value="{{item.responsavel}}" [disabled]="item.submitted">
-            <ion-select-option *ngFor="let op of selectOptions" value="{{op.id}}">{{op.text}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <div class="validation-fail" *ngIf="(responsavel.dirty || responsavel.touched) && responsavel.invalid">Responsável necessário. </div>
-
-        <ion-item>
-          <ion-label position="floating">Data</ion-label>
-          <ion-datetime formControlName="data" required class="input-card-subtitle" display-format="DD/MM/YYYY"
-            picker-format="DD MMM YYYY" cancelText="Cancelar" doneText="Selecionar" value="{{item.responsavel}}"
-            [disabled]="item.submitted" [yearValues]="customYearValues"></ion-datetime>
-        </ion-item>
-        <div class="validation-fail" *ngIf="(data.dirty || data.touched) && data.invalid">Selecione uma data.</div>
-
-
-        <ion-row class="cardfooter">
-          <ion-col size="10" sizeXs="9" text-right>
-            <ion-button color="danger" shape="round" (click)="cancelar(i)" [hidden]="item.submitted">
-              <ion-icon name="close"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col size="2" sizeXs="3" text-right>
-            <ion-button color="primary" shape="round" type="submit" [hidden]="item.submitted"
-              [disabled]="!cardForm.valid">
-              <ion-icon name="save"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col text-center>
-            <ion-button color="success" shape="round" (click)="cancelar(i)" type="submit" [hidden]="!item.submitted">
-              <ion-icon name="checkmark"></ion-icon>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-
-        <p>Form: {{cardForm.value | json }}</p>
-      </form>
+      <ion-item>
+        <ion-label position="stacked">Data</ion-label>
+        <ion-input [disabled]="true">{{ item.data }}</ion-input>
+      </ion-item>
     </ion-card>
   </ion-list>
-
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="adicionar()">
