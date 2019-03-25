@@ -42,7 +42,8 @@ export class LembretesPage implements OnInit {
 
   async adicionar() {
     const modal = await this.modalCtrl.create({
-      component: LembretesModalPage
+      component: LembretesModalPage,
+      cssClass: 'my-short-modal-css'
     });
 
     await modal.present();

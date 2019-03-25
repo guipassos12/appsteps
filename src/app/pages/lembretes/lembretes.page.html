@@ -22,7 +22,7 @@
 
       <ion-item>
         <ion-label position="stacked">Data</ion-label>
-        <ion-input [disabled]="true">{{ item.data }}</ion-input>
+        <ion-input [disabled]="true">{{ item.data | date: 'dd/MM/yyyy' }}</ion-input>
       </ion-item>
     </ion-card>
   </ion-list>

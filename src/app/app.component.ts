@@ -43,7 +43,7 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.appService.initService().subscribe(() => { console.log('tamo ai na atividade') });
+    this.appService.initService();
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();

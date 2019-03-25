@@ -1,8 +1,9 @@
 import { ToastController, ModalController } from '@ionic/angular';
 import { LembretesService } from './../../services/lembretes-service/lembretes.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Lembrete } from 'src/app/entidades/lembrete';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-lembretes-modal',
@@ -13,14 +14,16 @@ export class LembretesModalPage implements OnInit {
 
   cardForm: FormGroup;
   customYearValues: Array<number> = [];
+  minDate: string;
   selectOptions = [
     { id: 'Guilherme', text: 'Guilherme' },
     { id: 'Laís', text: 'Laís' },
     { id: 'Todos', text: 'Todos' }
   ];
 
-  constructor(private fb: FormBuilder, private lembServ: LembretesService,
-    private modalCtrl: ModalController, private toastCtrl: ToastController) { }
+  constructor(@Inject(LOCALE_ID) protected localeId: string,
+              private fb: FormBuilder, private lembServ: LembretesService,
+              private modalCtrl: ModalController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.cardForm = this.fb.group({
@@ -29,10 +32,11 @@ export class LembretesModalPage implements OnInit {
       data: new FormControl('', [Validators.required]),
     });
 
-    this.anosDisponiveis();
+    this.ajustaData();
   }
 
-  anosDisponiveis() {
+  ajustaData() {
+    this.minDate = formatDate(new Date(), 'yyyy-MM-dd', this.localeId);
     const ano = new Date().getFullYear();
     for (let i = 0; i <= 2; i++) {
       this.customYearValues.push(ano + i);
