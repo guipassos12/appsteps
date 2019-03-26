@@ -3,7 +3,6 @@ import { LembretesService } from './../../services/lembretes-service/lembretes.s
 import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Lembrete } from 'src/app/entidades/lembrete';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-lembretes-modal',
@@ -21,8 +20,7 @@ export class LembretesModalPage implements OnInit {
     { id: 'Todos', text: 'Todos' }
   ];
 
-  constructor(@Inject(LOCALE_ID) protected localeId: string,
-              private fb: FormBuilder, private lembServ: LembretesService,
+  constructor(private fb: FormBuilder, private lembServ: LembretesService,
               private modalCtrl: ModalController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
@@ -36,7 +34,6 @@ export class LembretesModalPage implements OnInit {
   }
 
   ajustaData() {
-    this.minDate = formatDate(new Date(), 'yyyy-MM-dd', this.localeId);
     const ano = new Date().getFullYear();
     for (let i = 0; i <= 2; i++) {
       this.customYearValues.push(ano + i);
@@ -63,7 +60,7 @@ export class LembretesModalPage implements OnInit {
     });
 
     toast.present();
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss({ 'success': true });
   }
 
   cancelar() {

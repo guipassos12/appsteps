@@ -48,9 +48,8 @@ ion-list {
     padding: 8px;
 }
 
-.my-short-modal-css .modal-wrapper {
-   height: 50%;
-   width: 80%;
-   position: absolute; 
-   display: block;  
+.my-modal-css .modal-wrapper {
+   min-height: 400px;
+   height: auto;
+   width: 80%; 
 }
