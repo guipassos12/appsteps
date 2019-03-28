@@ -2,7 +2,7 @@ import { LembretesModalPage } from './../../modals/lembretes-modal/lembretes-mod
 import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
-import { ToastController, LoadingController, ModalController } from '@ionic/angular';
+import { ToastController, LoadingController, ModalController, IonItemSliding, AlertController } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
@@ -16,7 +16,7 @@ export class LembretesPage implements OnInit {
   lembretes: Array<Lembrete> = [];
 
   constructor(private lembServ: LembretesService,
-    private loadCtrl: LoadingController, private modalCtrl: ModalController,
+    private loadCtrl: LoadingController, private modalCtrl: ModalController, private alertCtrl: AlertController,
     private toastCtrl: ToastController, private localNotif: LocalNotifications, private backgroundMode: BackgroundMode) {
   }
 
@@ -55,13 +55,27 @@ export class LembretesPage implements OnInit {
   }
 
 
-  async itemFeito(index) {
-    this.lembretes.splice(index, 1);
-    const toast = await this.toastCtrl.create({
-      duration: 2000,
-      message: 'Que responsável! Fazendo todas as suas obrigações :) '
+  async feito(index: number) {
+    const alert = await this.alertCtrl.create({
+      subHeader: 'Fez o que tinha que fazer?',
+      buttons: [
+        {
+          text: 'Ainda não'
+        },
+        {
+          text: 'Sim',
+          handler: async () => {
+            this.lembretes.splice(index, 1);
+            const toast = await this.toastCtrl.create({
+              duration: 2000,
+              message: 'Que responsável! Fazendo todas as suas obrigações :) '
+            });
+
+            toast.present();
+          }
+        }]
     });
 
-    toast.present();
+    alert.present();
   }
 }

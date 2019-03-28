@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-card *ngFor="let item of lembretes; index as i">
+    <ion-card *ngFor="let item of lembretes; index as i" (click)="feito(i)">
       <ion-item>
         <ion-label position="stacked">Compromisso</ion-label>
         <ion-input [disabled]="true">{{ item.compromisso }}</ion-input>
