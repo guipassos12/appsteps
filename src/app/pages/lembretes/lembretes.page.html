@@ -10,20 +10,36 @@
 <ion-content padding>
   <ion-list>
     <ion-card *ngFor="let item of lembretes; index as i" (click)="feito(i)">
+
       <ion-item>
         <ion-label position="stacked">Compromisso</ion-label>
         <ion-input [disabled]="true">{{ item.compromisso }}</ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Responsável</ion-label>
-        <ion-input [disabled]="true">{{ item.responsavel }}</ion-input>
-      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Responsável</ion-label>
+            <ion-input [disabled]="true">{{ item.responsavel }}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Data</ion-label>
+            <ion-input [disabled]="true">{{ item.data | date: 'dd/MM/yyyy' }}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-      <ion-item>
-        <ion-label position="stacked">Data</ion-label>
-        <ion-input [disabled]="true">{{ item.data | date: 'dd/MM/yyyy' }}</ion-input>
-      </ion-item>
+      <div style="text-align: center">
+        <ion-button color="primary" style="width:30%;margin-right: 8px;" (click)="editar(i)">
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+
+        <ion-button color="success" style="width:30%" (click)="feito(i)">
+          <ion-icon name="checkmark"></ion-icon>
+        </ion-button>
+      </div>
     </ion-card>
   </ion-list>
 

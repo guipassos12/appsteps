@@ -1,6 +1,6 @@
 import { ToastController, ModalController } from '@ionic/angular';
 import { LembretesService } from './../../services/lembretes-service/lembretes.service';
-import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Lembrete } from 'src/app/entidades/lembrete';
 
@@ -11,6 +11,8 @@ import { Lembrete } from 'src/app/entidades/lembrete';
 })
 export class LembretesModalPage implements OnInit {
 
+  @Input() lembrete: Lembrete;
+  
   cardForm: FormGroup;
   customYearValues: Array<number> = [];
   minDate: string;
@@ -29,6 +31,12 @@ export class LembretesModalPage implements OnInit {
       responsavel: new FormControl('', [Validators.required]),
       data: new FormControl('', [Validators.required]),
     });
+
+    if(this.lembrete != null) {
+      this.cardForm.controls['compromisso'].setValue(this.lembrete.compromisso);
+      this.cardForm.controls['responsavel'].setValue(this.lembrete.responsavel);
+      this.cardForm.controls['data'].setValue(this.lembrete.data);
+    }
 
     this.ajustaData();
   }

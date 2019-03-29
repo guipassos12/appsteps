@@ -55,6 +55,23 @@ export class LembretesPage implements OnInit {
   }
 
 
+  async editar(index) {
+    const lemb = this.lembretes[index];
+    const modal = await this.modalCtrl.create({
+      component: LembretesModalPage,
+      componentProps: { 'lembrete' : lemb },
+      cssClass: 'my-modal-css'
+    });
+
+    modal.present();
+
+    const resp = await modal.onDidDismiss();
+    if (resp && resp.data) {
+      this.getAll();
+    }
+  }
+
+  
   async feito(index: number) {
     const alert = await this.alertCtrl.create({
       subHeader: 'Fez o que tinha que fazer?',
@@ -70,7 +87,6 @@ export class LembretesPage implements OnInit {
               duration: 2000,
               message: 'Que responsável! Fazendo todas as suas obrigações :) '
             });
-
             toast.present();
           }
         }]
