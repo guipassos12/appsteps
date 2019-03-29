@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
 import { ToastController, LoadingController, ModalController, IonItemSliding, AlertController } from '@ionic/angular';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-lembretes',
@@ -15,9 +13,8 @@ export class LembretesPage implements OnInit {
 
   lembretes: Array<Lembrete> = [];
 
-  constructor(private lembServ: LembretesService,
-    private loadCtrl: LoadingController, private modalCtrl: ModalController, private alertCtrl: AlertController,
-    private toastCtrl: ToastController, private localNotif: LocalNotifications, private backgroundMode: BackgroundMode) {
+  constructor(private lembServ: LembretesService, private toastCtrl: ToastController,
+    private loadCtrl: LoadingController, private modalCtrl: ModalController, private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -59,7 +56,7 @@ export class LembretesPage implements OnInit {
     const lemb = this.lembretes[index];
     const modal = await this.modalCtrl.create({
       component: LembretesModalPage,
-      componentProps: { 'lembrete' : lemb },
+      componentProps: { 'lembrete': lemb },
       cssClass: 'my-modal-css'
     });
 
@@ -71,8 +68,9 @@ export class LembretesPage implements OnInit {
     }
   }
 
-  
+
   async feito(index: number) {
+    const lemb = this.lembretes[index];
     const alert = await this.alertCtrl.create({
       subHeader: 'Fez o que tinha que fazer?',
       buttons: [
@@ -82,12 +80,24 @@ export class LembretesPage implements OnInit {
         {
           text: 'Sim',
           handler: async () => {
-            this.lembretes.splice(index, 1);
-            const toast = await this.toastCtrl.create({
-              duration: 2000,
-              message: 'Que responsável! Fazendo todas as suas obrigações :) '
-            });
-            toast.present();
+            this.lembServ.finalizar(lemb._id).subscribe(
+              async res => {
+                this.lembretes.splice(index, 1);
+                const toast = await this.toastCtrl.create({
+                  duration: 2000,
+                  message: 'Que responsável! Fazendo todas as suas obrigações :) '
+                });
+                toast.present();
+              },
+              async err => {
+                const toast = await this.toastCtrl.create({
+                  duration: 2000,
+                  message: err
+                });
+                toast.present();
+              }
+            );
+
           }
         }]
     });

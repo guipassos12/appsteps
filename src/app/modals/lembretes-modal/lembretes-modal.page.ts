@@ -1,3 +1,5 @@
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { ToastController, ModalController } from '@ionic/angular';
 import { LembretesService } from './../../services/lembretes-service/lembretes.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -12,7 +14,7 @@ import { Lembrete } from 'src/app/entidades/lembrete';
 export class LembretesModalPage implements OnInit {
 
   @Input() lembrete: Lembrete;
-  
+
   cardForm: FormGroup;
   customYearValues: Array<number> = [];
   minDate: string;
@@ -22,8 +24,8 @@ export class LembretesModalPage implements OnInit {
     { id: 'Todos', text: 'Todos' }
   ];
 
-  constructor(private fb: FormBuilder, private lembServ: LembretesService,
-              private modalCtrl: ModalController, private toastCtrl: ToastController) { }
+  constructor(private fb: FormBuilder, private lembServ: LembretesService, private modalCtrl: ModalController,
+    private toastCtrl: ToastController, private localNotif: LocalNotifications, private backgroundMode: BackgroundMode) { }
 
   ngOnInit() {
     this.cardForm = this.fb.group({
@@ -32,7 +34,7 @@ export class LembretesModalPage implements OnInit {
       data: new FormControl('', [Validators.required]),
     });
 
-    if(this.lembrete != null) {
+    if (this.lembrete != null) {
       this.cardForm.controls['compromisso'].setValue(this.lembrete.compromisso);
       this.cardForm.controls['responsavel'].setValue(this.lembrete.responsavel);
       this.cardForm.controls['data'].setValue(this.lembrete.data);
@@ -52,14 +54,15 @@ export class LembretesModalPage implements OnInit {
   async salvar() {
     const lemb: Lembrete = this.cardForm.value;
     this.lembServ.salvar(lemb).subscribe(() => {
-      /* this.backgroundMode.enable();
-       this.localNotif.schedule({
-         title: 'Compromisso a ser feito',
-         text: lemb.compromisso,
-         foreground: true,
-         vibrate: true,
-         trigger: { at: lemb.data },
-         led: 'FF0000'*/
+      this.backgroundMode.enable();
+      this.localNotif.schedule({
+        title: 'Compromisso a ser feito',
+        text: lemb.compromisso,
+        vibrate: true,
+        foreground: true,
+        trigger: { at: lemb.data },
+        led: 'FF0000'
+      });
     });
 
     const toast = await this.toastCtrl.create({
@@ -71,6 +74,7 @@ export class LembretesModalPage implements OnInit {
     this.modalCtrl.dismiss({ 'success': true });
   }
 
+  
   cancelar() {
     this.modalCtrl.dismiss();
   }
