@@ -1,4 +1,7 @@
+import { LuzModalPage } from './../../../modals/luz-modal/luz-modal.page';
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-luz',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LuzPage implements OnInit {
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
+
+  async adicionar() {
+    const modal = await this.modalCtrl.create({
+      component: LuzModalPage,
+      cssClass: 'my-modal-css'
+    });
+
+    modal.present();
+
+    const resp = await modal.onDidDismiss();
+    if (resp && resp.data) {
+    }
+  }
 }

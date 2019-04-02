@@ -2,7 +2,7 @@ import { LembretesModalPage } from './../../modals/lembretes-modal/lembretes-mod
 import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
-import { ToastController, LoadingController, ModalController, IonItemSliding, AlertController } from '@ionic/angular';
+import { ToastController, LoadingController, ModalController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lembretes',

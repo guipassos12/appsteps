@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { LuzPage } from './luz.page';
+import { LuzModalPage } from 'src/app/modals/luz-modal/luz-modal.page';
+
 
 const routes: Routes = [
   {
@@ -18,9 +20,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [LuzPage]
+  declarations: [LuzPage, LuzModalPage],
+  entryComponents: [LuzModalPage]
 })
 export class LuzPageModule {}

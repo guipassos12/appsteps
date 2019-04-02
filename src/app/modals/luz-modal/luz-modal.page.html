@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>luz-modal</ion-title>
+    <ion-title>Adicionar Conta</ion-title>
+    <ion-icon slot="end" color="black" name="close" size="large" (click)="cancelar()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <form [formGroup]="luzForm" novalidate (submit)="salvar()">
+    <ion-item>
+      <ion-label position="stacked">Valor</ion-label>
+      <ion-input inputmode="numberic" type="number" required formControlName="valor"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Data</ion-label>
+      <ion-datetime formControlName="data" required display-format="MM/YYYY"
+        picker-format="MMM YYYY" cancelText="Cancelar" doneText="Selecionar" [yearValues]="customYearValues"></ion-datetime>
+    </ion-item>
+
+    <br>
+    <div class="center">
+      <ion-button color="primary" shape="round" type="submit" [disabled]="!luzForm.valid">
+        <ion-label>Salvar</ion-label>
+      </ion-button>
+    </div>
+  </form>
 
 </ion-content>
