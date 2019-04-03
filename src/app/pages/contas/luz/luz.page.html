@@ -1,14 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Contas de Luz</ion-title>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let l of contasLuz; index as i">
+      <ion-label>{{l.data | date: 'MM/yyyy' }}</ion-label>
+      <ion-label>{{l.valor}}</ion-label>
+      <ion-button color="primary" (click)="editar(i)">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <div style="position: relative; height:400px; width:400px">
+    <canvas #lineCanvas></canvas>
+  </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="adicionar()">

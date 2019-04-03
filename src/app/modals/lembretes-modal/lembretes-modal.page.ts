@@ -15,6 +15,7 @@ export class LembretesModalPage implements OnInit {
 
   @Input() lembrete: Lembrete;
 
+  isEdit = false;
   cardForm: FormGroup;
   customYearValues: Array<number> = [];
   minDate: string;
@@ -35,6 +36,7 @@ export class LembretesModalPage implements OnInit {
     });
 
     if (this.lembrete != null) {
+      this.isEdit = true;
       this.cardForm.controls['compromisso'].setValue(this.lembrete.compromisso);
       this.cardForm.controls['responsavel'].setValue(this.lembrete.responsavel);
       this.cardForm.controls['data'].setValue(this.lembrete.data);
@@ -42,6 +44,7 @@ export class LembretesModalPage implements OnInit {
 
     this.ajustaData();
   }
+
 
   ajustaData() {
     const ano = new Date().getFullYear();
@@ -52,32 +55,44 @@ export class LembretesModalPage implements OnInit {
 
 
   async salvar() {
-    const lemb: Lembrete = this.cardForm.value;
-    this.lembServ.salvar(lemb).subscribe(() => {
-      this.backgroundMode.enable();
-      this.localNotif.schedule({
-        title: 'Compromisso a ser feito',
-        text: lemb.compromisso,
-        vibrate: true,
-        foreground: true,
-        trigger: { at: lemb.data },
-        led: 'FF0000'
+    const lemb = this.cardForm.value;
+    if (this.isEdit) {
+      lemb._id = this.lembrete._id;
+      this.lembServ.editar(lemb).subscribe(() => {
+        this.ativarNotificacao(lemb);
       });
-    });
+    } else {
+      this.lembServ.salvar(lemb).subscribe(() => {
+        this.ativarNotificacao(lemb);
+      });
+    }
 
     const toast = await this.toastCtrl.create({
-      duration: 2000,
+      duration: 1000,
       message: 'Compromisso para ' + lemb.responsavel + ' salvo com sucesso!'
     });
-
     toast.present();
     this.modalCtrl.dismiss({ 'success': true });
   }
 
-  
+
   cancelar() {
     this.modalCtrl.dismiss();
   }
+
+
+  ativarNotificacao(lemb) {
+    this.backgroundMode.enable();
+    this.localNotif.schedule({
+      title: 'Compromisso a ser feito',
+      text: lemb.compromisso,
+      vibrate: true,
+      foreground: true,
+      trigger: { at: lemb.data },
+      led: 'FF0000'
+    });
+  }
+
 
   get compromisso() {
     return this.cardForm.get('compromisso');

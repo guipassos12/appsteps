@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,13 @@ export class AppService {
   constructor(public http: HttpClient) { }
 
 
-  initService() {
-    this.http.get(environment.urlback + '/').pipe(
+  initService(): Observable<any> {
+    return this.http.get(environment.urlback + '/alive').pipe(
+      map((res: Response) => {
+        if (res) {
+          console.log('alive');
+        }
+      }),
       catchError(this.handleError)
     );
   }

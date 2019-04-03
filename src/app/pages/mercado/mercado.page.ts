@@ -24,8 +24,8 @@ export class MercadoPage implements OnInit {
       message: 'Carregando dados...',
       spinner: 'bubbles'
     });
-    await load.present();
-    await this.mercadoSrv.carregaTodos()
+    load.present();
+    this.mercadoSrv.carregaTodos()
       .subscribe(res => {
         this.compras = res;
         load.dismiss();
@@ -61,7 +61,7 @@ export class MercadoPage implements OnInit {
               },
               async err => {
                 const toast = await this.toastCtrl.create({
-                  duration: 2000,
+                  duration: 1000,
                   message: err
                 });
                 toast.present();

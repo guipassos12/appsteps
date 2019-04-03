@@ -28,8 +28,8 @@ export class LembretesPage implements OnInit {
       spinner: 'bubbles'
     });
 
-    await load.present();
-    await this.lembServ.carregaTodos()
+    load.present();
+    this.lembServ.carregaTodos()
       .subscribe(data => {
         load.dismiss();
         this.lembretes = data;

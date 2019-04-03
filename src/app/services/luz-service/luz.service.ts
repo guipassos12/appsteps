@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
@@ -8,30 +8,30 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class LembretesService {
+export class LuzService {
   constructor(public http: HttpClient) { }
 
   carregaTodos(): Observable<any> {
-    return this.http.get(environment.urlback + '/lembretes').pipe(
+    return this.http.get(environment.urlback + '/luz').pipe(
       catchError(this.handleError)
     );
   }
 
-  salvar(lembrete): Observable<any> {
-    return this.http.post(environment.urlback + '/lembretes/add', lembrete).pipe(
+  salvar(luz): Observable<any> {
+    return this.http.post(environment.urlback + '/luz/add', luz).pipe(
       catchError(this.handleError)
     );
   }
 
-  editar(lembrete): Observable<any> {
-    return this.http.put(environment.urlback + '/lembretes/update/' + lembrete._id, lembrete).pipe(
+  editar(luz): Observable<any> {
+    return this.http.put(environment.urlback + '/luz/update/' + luz._id, luz).pipe(
       catchError(this.handleError)
     );
   }
 
 
   finalizar(id): Observable<any> {
-    return this.http.delete(environment.urlback + '/lembretes/del/' + id).pipe(
+    return this.http.delete(environment.urlback + '/luz/del/' + id).pipe(
       catchError(this.handleError)
     );
   }
