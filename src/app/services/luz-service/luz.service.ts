@@ -1,6 +1,6 @@
 import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -12,7 +12,8 @@ export class LuzService {
   constructor(public http: HttpClient) { }
 
   carregaTodosAno(ano): Observable<any> {
-    return this.http.get(environment.urlback + '/luz').pipe(
+    const param = new HttpParams().set('ano', ano);
+    return this.http.get(environment.urlback + '/luz', { params: param }).pipe(
       catchError(this.handleError)
     );
   }
