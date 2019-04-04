@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class LuzService {
   constructor(public http: HttpClient) { }
 
-  carregaTodos(): Observable<any> {
+  carregaTodosAno(ano): Observable<any> {
     return this.http.get(environment.urlback + '/luz').pipe(
       catchError(this.handleError)
     );

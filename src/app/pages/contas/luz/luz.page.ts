@@ -1,7 +1,7 @@
 import { LuzService } from './../../../services/luz-service/luz.service';
 import { LuzModalPage } from './../../../modals/luz-modal/luz-modal.page';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { Luz } from 'src/app/entidades/luz';
 import { Chart } from 'chart.js';
 
@@ -16,38 +16,38 @@ export class LuzPage implements OnInit {
   @ViewChild('lineCanvas') lineCanvas;
 
   contasLuz: Array<Luz>;
+  currentYear: number;
 
-  constructor(private modalCtrl: ModalController, private luzSrv: LuzService, private loadCtrl: LoadingController) { }
+  constructor(private modalCtrl: ModalController, private luzSrv: LuzService) { }
 
   ngOnInit() {
+    this.currentYear = new Date().getFullYear();
     this.carregar();
-    this.carregaChart();
   }
 
-  async carregar() {
-    const load = await this.loadCtrl.create({
-      message: 'Carregando dados...',
-      spinner: 'bubbles'
-    });
-    load.present();
-
-    this.luzSrv.carregaTodos().subscribe(
+  carregar() {
+    this.luzSrv.carregaTodosAno(this.currentYear).subscribe(
       res => {
         this.contasLuz = res;
-        load.dismiss();
+        this.carregaChart();
       }, err => {
         console.log(err);
-        load.dismiss();
       });
   }
 
 
   carregaChart() {
+    const meses = [];
+    const valores = [];
+    this.contasLuz.forEach(c => {
+        meses.push(c.data);
+        valores.push(c.valor);
+    });
     const chart = new Chart(this.lineCanvas.nativeElement, {
 
       type: 'line',
       data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        labels: meses,
         datasets: [
           {
             label: 'Valores',
@@ -68,7 +68,7 @@ export class LuzPage implements OnInit {
             pointHoverBorderWidth: 2,
             pointRadius: 2,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: valores,
             spanGaps: false,
           }
         ]
@@ -106,4 +106,5 @@ export class LuzPage implements OnInit {
       this.carregar();
     }
   }
+
 }

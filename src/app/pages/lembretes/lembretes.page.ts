@@ -23,15 +23,15 @@ export class LembretesPage implements OnInit {
 
 
   async getAll() {
-    const load = await this.loadCtrl.create({
+  /*  const load = await this.loadCtrl.create({
       message: 'Carregando dados...',
       spinner: 'bubbles'
     });
 
-    load.present();
+    load.present();*/
     this.lembServ.carregaTodos()
       .subscribe(data => {
-        load.dismiss();
+       // load.dismiss();
         this.lembretes = data;
       });
   }

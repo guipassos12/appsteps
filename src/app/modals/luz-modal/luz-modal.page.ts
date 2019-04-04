@@ -33,7 +33,7 @@ export class LuzModalPage implements OnInit {
     }
 
     const ano = new Date().getFullYear();
-    for (let i = 0; i <= 2; i++) {
+    for (let i = -1; i <= 2; i++) {
       this.customYearValues.push(ano + i);
     }
   }
@@ -41,6 +41,7 @@ export class LuzModalPage implements OnInit {
 
   salvar() {
     const l = this.luzForm.value;
+    console.log(l);
     if (this.isEdit) {
       l._id = this.luz._id;
       this.luzSrv.editar(l).subscribe();
@@ -48,7 +49,7 @@ export class LuzModalPage implements OnInit {
       this.luzSrv.salvar(l).subscribe();
     }
 
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss({ l });
   }
 
 
