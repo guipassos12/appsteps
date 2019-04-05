@@ -32,9 +32,8 @@ export class LuzModalPage implements OnInit {
       this.luzForm.controls['data'].setValue(this.luz.data);
     }
 
-    const ano = new Date().getFullYear();
-    for (let i = -1; i <= 2; i++) {
-      this.customYearValues.push(ano + i);
+    for (let i = 2018; i <= new Date().getFullYear(); i++) {
+      this.customYearValues.push(i);
     }
   }
 

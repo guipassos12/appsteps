@@ -9,13 +9,18 @@
 
 <ion-content padding>
 
-  <ion-select></ion-select>
+  <ion-item>
+    <ion-label>Ano</ion-label>
+    <ion-select [(ngModel)]="currentYear" cancelText="Cancelar" okText="Ok" (ionChange)="carregar()">
+      <ion-select-option *ngFor="let y of years;" [value]="y">{{ y }}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <ion-card style="height: 60%">
     <ion-card-content>
       <ion-list>
         <ion-item *ngFor="let l of contasLuz; index as i">
-          <ion-label>{{l.data | date: 'MM/yyyy' }}</ion-label>
+          <ion-label>{{l.data | date: 'MMMM': 'UTC' }}</ion-label>
           <ion-label>{{l.valor}}</ion-label>
           <ion-button color="primary" (click)="editar(i)">
             <ion-icon name="create"></ion-icon>

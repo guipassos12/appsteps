@@ -16,13 +16,14 @@ export class LuzPage implements OnInit {
   @ViewChild('lineCanvas') lineCanvas;
 
   contasLuz: Array<Luz>;
-  currentYear: number;
+  currentYear = new Date().getFullYear();
+  years: Array<number> = [];
 
   constructor(private modalCtrl: ModalController, private luzSrv: LuzService) { }
 
   ngOnInit() {
-    this.currentYear = new Date().getFullYear();
     this.carregar();
+    this.carregarAnos();
   }
 
   carregar() {
@@ -40,8 +41,9 @@ export class LuzPage implements OnInit {
     const meses = [];
     const valores = [];
     this.contasLuz.forEach(c => {
-        meses.push(c.data);
-        valores.push(c.valor);
+      console.log(c);
+      meses.push(c.data);
+      valores.push(c.valor);
     });
     const chart = new Chart(this.lineCanvas.nativeElement, {
 
@@ -74,6 +76,13 @@ export class LuzPage implements OnInit {
         ]
       }
     });
+  }
+
+
+  carregarAnos() {
+    for (let i = 2018; i <= new Date().getFullYear(); i++) {
+      this.years.push(i);
+    }
   }
 
 
