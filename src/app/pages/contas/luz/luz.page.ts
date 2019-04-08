@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Luz } from 'src/app/entidades/luz';
 import { Chart } from 'chart.js';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -40,9 +41,10 @@ export class LuzPage implements OnInit {
   carregaChart() {
     const meses = [];
     const valores = [];
-    this.contasLuz.forEach(c => {
-      console.log(c);
-      meses.push(c.data);
+    this.contasLuz.slice().reverse().forEach(c => {
+      let data = new DatePipe('pt-BR').transform(c.data, 'MMM', 'UTC');
+      data = data.charAt(0).toUpperCase() + data.slice(1);
+      meses.push(data);
       valores.push(c.valor);
     });
     const chart = new Chart(this.lineCanvas.nativeElement, {
@@ -52,26 +54,21 @@ export class LuzPage implements OnInit {
         labels: meses,
         datasets: [
           {
-            label: 'Valores',
+            label: 'Valor',
             fill: true,
-            lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
+            lineTension: 0.5,
+            backgroundColor: 'rgba(100, 181, 246, 0.75)',
+            borderColor: '#9be7ff',
+            pointBorderColor: '#ababab',
+            pointBackgroundColor: '#00e575',
             pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverRadius: 8,
+            pointHoverBackgroundColor: '#00e575',
+            pointHoverBorderColor: '#00e575',
             pointHoverBorderWidth: 2,
-            pointRadius: 2,
+            pointRadius: 3,
             pointHitRadius: 10,
-            data: valores,
-            spanGaps: false,
+            data: valores
           }
         ]
       }
@@ -89,10 +86,13 @@ export class LuzPage implements OnInit {
   async adicionar() {
     const modal = await this.modalCtrl.create({
       component: LuzModalPage,
-      cssClass: 'my-modal-css'
+      cssClass: 'my-modal-css-small'
     });
 
-    modal.present();
+    modal.present().then(() => {
+      const focused: any = document.querySelector('ion-alert input');
+      focused.focus();
+    });
 
     const resp = await modal.onDidDismiss();
     if (resp && resp.data) {
@@ -105,7 +105,7 @@ export class LuzPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: LuzModalPage,
       componentProps: { 'luz': luz },
-      cssClass: 'my-modal-css'
+      cssClass: 'my-modal-css-small'
     });
 
     modal.present();

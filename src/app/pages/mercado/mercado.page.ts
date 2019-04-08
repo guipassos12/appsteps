@@ -20,18 +20,18 @@ export class MercadoPage implements OnInit {
   }
 
   async getCompras() {
-   /* const load = await this.loadCtrl.create({
-      message: 'Carregando dados...',
-      spinner: 'bubbles'
-    });
-    load.present();*/
+    /* const load = await this.loadCtrl.create({
+       message: 'Carregando dados...',
+       spinner: 'bubbles'
+     });
+     load.present();*/
     this.mercadoSrv.carregaTodos()
       .subscribe(res => {
         this.compras = res;
-      //  load.dismiss();
+        //  load.dismiss();
       }, err => {
         console.log(err);
-    //    load.dismiss();
+        //    load.dismiss();
       });
   }
 
@@ -55,7 +55,7 @@ export class MercadoPage implements OnInit {
             const compra = new Compra(data.titulo);
             this.mercadoSrv.salvar(compra).subscribe(
               res => {
-                this.zone.run( () => {
+                this.zone.run(() => {
                   this.compras.push(res);
                 });
               },

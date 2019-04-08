@@ -40,7 +40,6 @@ export class LuzModalPage implements OnInit {
 
   salvar() {
     const l = this.luzForm.value;
-    console.log(l);
     if (this.isEdit) {
       l._id = this.luz._id;
       this.luzSrv.editar(l).subscribe();
