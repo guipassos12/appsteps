@@ -60,13 +60,13 @@ export class LuzPage implements OnInit {
             backgroundColor: 'rgba(100, 181, 246, 0.75)',
             borderColor: '#9be7ff',
             pointBorderColor: '#ababab',
-            pointBackgroundColor: '#00e575',
+            pointBackgroundColor: '#F3E061',
             pointBorderWidth: 1,
             pointHoverRadius: 8,
-            pointHoverBackgroundColor: '#00e575',
-            pointHoverBorderColor: '#00e575',
+            pointHoverBackgroundColor: '#F3E061',
+            pointHoverBorderColor: '#F3E061',
             pointHoverBorderWidth: 2,
-            pointRadius: 3,
+            pointRadius: 3.2,
             pointHitRadius: 10,
             data: valores
           }
@@ -90,7 +90,7 @@ export class LuzPage implements OnInit {
     });
 
     modal.present().then(() => {
-      const focused: any = document.querySelector('ion-alert input');
+      const focused: any = document.querySelector('ion-modal input');
       focused.focus();
     });
 
@@ -108,7 +108,10 @@ export class LuzPage implements OnInit {
       cssClass: 'my-modal-css-small'
     });
 
-    modal.present();
+    modal.present().then(() => {
+      const focused: any = document.querySelector('ion-modal input');
+      focused.focus();
+    });
 
     const resp = await modal.onDidDismiss();
     if (resp && resp.data) {
