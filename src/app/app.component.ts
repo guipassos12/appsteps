@@ -21,9 +21,9 @@ export class AppComponent {
       icon: 'cart'
     },
     {
-      title: 'Contas',
-      url: '/contas',
-      icon: 'cash'
+      title: 'Luz',
+      url: '/luz',
+      icon: 'flash'
     },
     {
       title: 'Lembretes',

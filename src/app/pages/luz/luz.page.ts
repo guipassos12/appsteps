@@ -1,5 +1,5 @@
-import { LuzService } from './../../../services/luz-service/luz.service';
-import { LuzModalPage } from './../../../modals/luz-modal/luz-modal.page';
+import { LuzService } from './../../services/luz-service/luz.service';
+import { LuzModalPage } from './../../modals/luz-modal/luz-modal.page';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Luz } from 'src/app/entidades/luz';
@@ -60,7 +60,7 @@ export class LuzPage implements OnInit {
             backgroundColor: 'rgba(100, 181, 246, 0.75)',
             borderColor: '#9be7ff',
             pointBorderColor: '#ababab',
-            pointBackgroundColor: '#F3E061',
+            pointBackgroundColor: '#3880ff',
             pointBorderWidth: 1,
             pointHoverRadius: 8,
             pointHoverBackgroundColor: '#F3E061',

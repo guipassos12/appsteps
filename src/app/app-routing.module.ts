@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: './pages/home/home.module#HomePageModule'
   },
   { path: 'lembretes', loadChildren: './pages/lembretes/lembretes.module#LembretesPageModule' },
-  { path: 'contas', loadChildren: './pages/contas/contas.module#ContasPageModule' },
+  { path: 'luz', loadChildren: './pages/luz/luz.module#LuzPageModule' },
   { path: 'mercado', loadChildren: './pages/mercado/mercado.module#MercadoPageModule' },
 ];
 
