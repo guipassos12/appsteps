@@ -9,8 +9,53 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="welcome-card">
+<ion-content padding>
+  <ion-grid>
+    <ion-row style="height: 13%;">
+      <ion-col text-center>
+        <ion-label color="tertiary" style="font-size: 22px">Bem vindo</ion-label>
+      </ion-col>
+    </ion-row>
 
-  </ion-card>
+    <ion-row style="height: 62%;">
+      <ion-card>
+        <ion-img [src]="nasa?.url"></ion-img>
+      </ion-card>
+    </ion-row>
+
+    <ion-row style="height: 25%;">
+      <ion-col no-padding style="width: 33%;">
+        <ion-card class="sub-card" text-center align-items-center>
+          <ion-row>
+            <ion-label style="font-size: 18px; font-weight: bold">{{qtdMercado}}</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-label>Itens para comprar</ion-label>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+
+      <ion-col no-padding style="width: 33%;">
+          <ion-card class="sub-card" text-center>
+            <ion-row>
+              <ion-label style="font-size: 18px; font-weight: bold">{{qtdMercado}}</ion-label>
+            </ion-row>
+            <ion-row>
+              <ion-label>Itens para comprar</ion-label>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+
+        <ion-col no-padding style="width: 33%;">
+            <ion-card class="sub-card" text-center>
+              <ion-row>
+                <ion-label style="font-size: 18px; font-weight: bold">{{qtdMercado}}</ion-label>
+              </ion-row>
+              <ion-row>
+                <ion-label>Itens para comprar</ion-label>
+              </ion-row>
+            </ion-card>
+          </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

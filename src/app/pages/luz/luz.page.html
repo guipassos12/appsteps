@@ -8,6 +8,13 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-item>
+    <ion-label>Ano</ion-label>
+    <ion-select [(ngModel)]="currentYear" cancelText="Cancelar" okText="Ok" (ionChange)="carregar()">
+      <ion-select-option *ngFor="let y of years;" [value]="y">{{ y }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <div>
     <canvas #lineCanvas></canvas>
   </div>

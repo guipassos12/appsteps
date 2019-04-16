@@ -24,6 +24,12 @@ export class AppService {
   }
 
 
+  nasaService(): Observable<any> {
+    return this.http.get('https://api.nasa.gov/planetary/apod?api_key=HGPOOXOl0rQMCkTgMZrENBrvKrjn4p63xXZfYW35').pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

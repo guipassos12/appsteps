@@ -20,18 +20,11 @@ export class MercadoPage implements OnInit {
   }
 
   async getCompras() {
-    /* const load = await this.loadCtrl.create({
-       message: 'Carregando dados...',
-       spinner: 'bubbles'
-     });
-     load.present();*/
     this.mercadoSrv.carregaTodos()
       .subscribe(res => {
         this.compras = res;
-        //  load.dismiss();
       }, err => {
         console.log(err);
-        //    load.dismiss();
       });
   }
 

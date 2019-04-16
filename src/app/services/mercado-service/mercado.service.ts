@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MercadoService {
 
-  constructor(public http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   carregaTodos(): Observable<any> {
     return this.http.get(environment.urlback + '/compras').pipe(

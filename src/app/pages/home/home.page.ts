@@ -1,3 +1,4 @@
+import { MercadoService } from './../../services/mercado-service/mercado.service';
 import { AppService } from './../../services/app-service/app.service';
 import { Component } from '@angular/core';
 
@@ -8,8 +9,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor(private appService: AppService) {
-    this.appService.initService().subscribe();
-  }
+  nasa: any;
+  qtdMercado = 0;
 
+  constructor(private appService: AppService, private mercadoSrv: MercadoService) {
+
+    this.appService.nasaService().subscribe(res => {
+      this.nasa = res;
+    });
+
+    this.mercadoSrv.carregaTodos().subscribe(res => {
+      const compras: [] = res;
+      this.qtdMercado = compras.length;
+    });
+  }
 }
