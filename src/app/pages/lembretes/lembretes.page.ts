@@ -2,7 +2,7 @@ import { LembretesModalPage } from './../../modals/lembretes-modal/lembretes-mod
 import { Component, OnInit } from '@angular/core';
 import { Lembrete } from '../../entidades/lembrete';
 import { LembretesService } from '../../services/lembretes-service/lembretes.service';
-import { ToastController, LoadingController, ModalController, AlertController } from '@ionic/angular';
+import { ToastController, ModalController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-lembretes',
@@ -14,7 +14,7 @@ export class LembretesPage implements OnInit {
   lembretes: Array<Lembrete> = [];
 
   constructor(private lembServ: LembretesService, private toastCtrl: ToastController,
-    private loadCtrl: LoadingController, private modalCtrl: ModalController, private alertCtrl: AlertController) {
+     private modalCtrl: ModalController, private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -23,15 +23,8 @@ export class LembretesPage implements OnInit {
 
 
   async getAll() {
-  /*  const load = await this.loadCtrl.create({
-      message: 'Carregando dados...',
-      spinner: 'bubbles'
-    });
-
-    load.present();*/
     this.lembServ.carregaTodos()
       .subscribe(data => {
-       // load.dismiss();
         this.lembretes = data;
       });
   }

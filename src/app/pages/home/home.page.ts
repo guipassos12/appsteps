@@ -12,9 +12,9 @@ export class HomePage {
   nasa: any;
   qtdMercado = 0;
 
-  constructor(private appService: AppService, private mercadoSrv: MercadoService) {
+  constructor(private appSrv: AppService, private mercadoSrv: MercadoService) {
 
-    this.appService.nasaService().subscribe(res => {
+    this.appSrv.nasaService().subscribe(res => {
       this.nasa = res;
     });
 

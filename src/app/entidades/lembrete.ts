@@ -5,4 +5,5 @@ export class Lembrete {
     compromisso: string;
     responsavel: string;
     data: Date;
+    alarme: Date;
 }

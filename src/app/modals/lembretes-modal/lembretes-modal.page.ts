@@ -55,7 +55,11 @@ export class LembretesModalPage implements OnInit {
 
 
   async salvar() {
-    const lemb = this.cardForm.value;
+    const lemb: Lembrete = this.cardForm.value;
+    const alarme = new Date(lemb.data);
+    alarme.setHours(alarme.getHours() - 1);
+    lemb.alarme = alarme;
+
     if (this.isEdit) {
       lemb._id = this.lembrete._id;
       this.lembServ.editar(lemb).subscribe(() => {
@@ -88,7 +92,7 @@ export class LembretesModalPage implements OnInit {
       text: lemb.compromisso,
       vibrate: true,
       foreground: true,
-      trigger: { at: lemb.data },
+      trigger: { at: lemb.alarme },
       led: 'FF0000'
     });
   }
