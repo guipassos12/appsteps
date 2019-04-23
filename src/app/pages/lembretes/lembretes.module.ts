@@ -24,6 +24,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [LembretesPage, LembretesModalPage],
-  entryComponents: [LembretesModalPage]
+  entryComponents: [LembretesModalPage],
 })
 export class LembretesPageModule { }

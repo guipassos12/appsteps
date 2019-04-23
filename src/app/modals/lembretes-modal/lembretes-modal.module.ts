@@ -23,4 +23,4 @@ const routes: Routes = [
   ],
   declarations: [LembretesModalPage]
 })
-export class LembretesModalPageModule {}
+export class LembretesModalPageModule { }
