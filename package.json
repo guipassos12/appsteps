@@ -28,6 +28,7 @@
     "@ionic/angular": "^4.0.0",
     "browse": "0.4.0",
     "chart.js": "^2.8.0",
+    "com-sarriaroman-photoviewer": "1.2.1",
     "cordova-android": "7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.5",
@@ -83,12 +84,13 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-background-mode": {},
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "com-sarriaroman-photoviewer": {}
     },
     "platforms": [
       "browser",
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
