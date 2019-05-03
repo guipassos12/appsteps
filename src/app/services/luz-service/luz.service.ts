@@ -18,6 +18,13 @@ export class LuzService {
     );
   }
 
+  carregarContaVigente(mesPesquisa): Observable<any> {
+    const param = new HttpParams().set('mesPesquisa', mesPesquisa);
+    return this.http.get(environment.urlback + '/luz/conta', { params: param }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   salvar(luz): Observable<any> {
     return this.http.post(environment.urlback + '/luz/add', luz).pipe(
       catchError(this.handleError)
