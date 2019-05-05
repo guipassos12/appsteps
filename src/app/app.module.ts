@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { FCM } from '@ionic-native/fcm/ngx';
+//import { FCM } from '@ionic-native/fcm/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +27,7 @@ registerLocaleData(ptBr);
   providers: [
     StatusBar,
     SplashScreen,
-    FCM,
+   // FCM,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

@@ -13,11 +13,13 @@ export class HomePage {
   qtdMercado = 0;
   luz = 0;
   lembretes = 0;
+  path: any;
 
   constructor(private mercadoSrv: MercadoService, private luzSrv: LuzService, private lembreteSrv: LembretesService) {
     const mes = new Date().getMonth();
     const dia = new Date().getDay();
-
+    this.path = "../assets/icon.png";
+    
     this.mercadoSrv.carregaTodos().subscribe(res => {
       const compras: [] = res;
       this.qtdMercado = compras.length;
