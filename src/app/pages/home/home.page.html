@@ -21,39 +21,40 @@
       <ion-img [src]="path"></ion-img>
     </ion-row>
 
+    <br />
+
     <ion-row style="height: 25%;">
-      
       <ion-col no-padding style="width: 33%;">
-        <ion-card class="sub-card" text-center color="primary">
-          <div style="height: 40%; width: 100%; display: table;">
-            <ion-label style="display: table-cell; vertical-align: middle; font-size: 28px; font-weight: bold">{{qtdMercado}}</ion-label>
+        <ion-card class="sub-card" text-center color="primary" (click)="redirectCard('/mercado')">
+          <div class="div-qtd-sub-card">
+            <ion-label style="font-size: 28px;" class="qtd-sub-card">{{qtdMercado}}</ion-label>
           </div>
-          <div style="height: 60%; display: table;">
-            <ion-label style="display: table-cell; vertical-align: middle;">Itens na lista de compras</ion-label>
+          <div class="div-msg-sub-card">
+            <ion-label  class="msg-sub-card">Itens na lista de compras</ion-label>
           </div>
         </ion-card>
       </ion-col>
 
 
       <ion-col no-padding style="width: 33%;">
-        <ion-card class="sub-card" text-center color="primary">
-          <div style="height: 40%; width: 100%; display: table;">
-            <ion-label style="display: table-cell; vertical-align: middle; font-size: 22px; font-weight: bold">{{luz | currency: 'BRL'}}</ion-label>
+        <ion-card class="sub-card" text-center color="primary" (click)="redirectCard('/luz')">
+          <div class="div-qtd-sub-card">
+            <ion-label style="font-size: 22px;" class="qtd-sub-card">{{luz | currency: 'BRL'}}</ion-label>
           </div>
-          <div style="height: 60%; display: table;">
-            <ion-label style="display: table-cell; vertical-align: middle;">Próxima conta de luz a ser paga</ion-label>
+          <div class="div-msg-sub-card">
+            <ion-label  class="msg-sub-card">Próxima conta de luz a ser paga</ion-label>
           </div>
         </ion-card>
       </ion-col>
 
      
       <ion-col no-padding style="width: 33%;">
-        <ion-card class="sub-card" text-center color="primary">
-          <div style="height: 40%; width: 100%; display: table;">
-            <ion-label style="display: table-cell; vertical-align: middle; font-size: 28px; font-weight: bold">{{lembretes}}</ion-label>
+        <ion-card class="sub-card" text-center color="primary" (click)="redirectCard('/lembretes')">
+          <div class="div-qtd-sub-card">
+            <ion-label style="font-size: 28px;" class="qtd-sub-card">{{lembretes}}</ion-label>
           </div>
-          <div style="height: 60%; display: table;">
-            <ion-label style="display: table-cell; vertical-align: middle;">Quantidade de lembretes</ion-label>
+          <div class="div-msg-sub-card">
+            <ion-label  class="msg-sub-card">Compromissos a serem feitos</ion-label>
           </div>
         </ion-card>
       </ion-col>

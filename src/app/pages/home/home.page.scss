@@ -1,13 +1,30 @@
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
-}
-
 .sub-card {
   margin-top: 24px;
   margin-left: 4px;
   margin-right: 4px;
   height: 100%;
+}
+
+.div-qtd-sub-card {
+  height: 40%; 
+  width: 100%; 
+  display: table;
+}
+
+.div-msg-sub-card {
+  height: 60%; 
+  display: table;
+}
+
+.qtd-sub-card {
+  display: table-cell; 
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.msg-sub-card {
+  display: table-cell; 
+  vertical-align: middle;
 }
 
 ion-grid {
